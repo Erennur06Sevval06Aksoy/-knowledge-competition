@@ -110,3 +110,4 @@ TestVeri test_1=RandonIndex() ;
 }
 
 
+//children: secimler,
