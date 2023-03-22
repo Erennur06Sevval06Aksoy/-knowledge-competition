@@ -1,7 +1,6 @@
 import 'package:bilgi_testi/soru.dart';
 
-class TestVeri{
-
+class TestVeri {
   int _sayac = 0;
 
   List<Soru> _soruBankasi = [
@@ -21,26 +20,29 @@ class TestVeri{
     Soru(soruMetni: 'Fransızlar 80 demek için, 4 - 20 der ', soruYaniti: true)
   ];
 
-  String getSoruMetni(){
+  String getSoruMetni() {
     return _soruBankasi[_sayac].soruMetni;
   }
 
-  bool getSoruYaniti (){
+  bool getSoruYaniti() {
     return _soruBankasi[_sayac].soruYaniti;
   }
 
-  void sonrakiSoru(){
-    if(_sayac < _soruBankasi.length-1){
+  void sonrakiSoru() {
+    if (_sayac < _soruBankasi.length - 1) {
       _sayac++;
     }
   }
-}
 
-class RandonIndex extends TestVeri{
-  @override
-  void sonrakiSoru(){
-    if(_sayac < _soruBankasi.length-1){
-      _sayac++;
+  bool testBittiMi() {
+    if (_sayac >= _soruBankasi.length - 1) {
+      return true;
+    }else{
+      return false;
     }
+  }
+
+  void testisifirla(){
+    _sayac = 0;
   }
 }

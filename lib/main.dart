@@ -1,3 +1,5 @@
+//import 'dart:html';
+
 import 'package:bilgi_testi/test_veri.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
@@ -26,7 +28,40 @@ class SoruSayfasi extends StatefulWidget {
 class _SoruSayfasiState extends State<SoruSayfasi> {
   List<Widget> secimler = [];
 
-TestVeri test_1=RandonIndex() ;
+  TestVeri test_1 = TestVeri();
+
+  void buttonFonksiyonu(bool x) {
+    if (test_1.testBittiMi() == true) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text("Tebrikler testi tamamladınız..."),
+            //content: new Text("Alert Dialog body"),
+            actions: <Widget>[
+              new TextButton(
+                child: new Text("BAŞA DÖN"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    secimler = [];
+                    test_1.testisifirla();
+                  });
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      setState(() {
+        test_1.getSoruYaniti() == x
+            ? secimler.add(kDogruIconu)
+            : secimler.add(kYanlisIconu);
+        test_1.sonrakiSoru();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,12 +108,7 @@ TestVeri test_1=RandonIndex() ;
                           size: 30.0,
                         ),
                         onPressed: () {
-                          setState(() {
-                            test_1.getSoruYaniti() == false
-                                ? secimler.add(kDogruIconu)
-                                : secimler.add(kYanlisIconu);
-                            test_1.sonrakiSoru();
-                          });
+                          buttonFonksiyonu(false);
                         },
                       ))),
               Expanded(
@@ -91,12 +121,7 @@ TestVeri test_1=RandonIndex() ;
                         onPrimary: Colors.white),
                     child: Icon(Icons.thumb_up, size: 30.0),
                     onPressed: () {
-                      setState(() {
-                        test_1.getSoruYaniti() == true
-                            ? secimler.add(kDogruIconu)
-                            : secimler.add(kYanlisIconu);
-                        test_1.sonrakiSoru();
-                      });
+                      buttonFonksiyonu(true);
                     },
                   ),
                 ),
@@ -108,6 +133,3 @@ TestVeri test_1=RandonIndex() ;
     );
   }
 }
-
-
-//children: secimler,
